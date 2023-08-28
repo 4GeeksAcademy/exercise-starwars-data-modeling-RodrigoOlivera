@@ -12,8 +12,9 @@ class User(Base):
     id = Column(Integer,primary_key=True, autoincrement=True)
     name = Column(String(250), nullable=False)
     lastname = Column(String(250),nullable=False)
+    subscription_date = Column(DATE,nullable = False)
     email = Column(String(250),nullable=False)
-
+    password = Column(String(100),nullable=False)
 class StarShips(Base):
     __tablename__ = 'starShips'
     id = Column(Integer,primary_key=True, autoincrement=True)
@@ -80,19 +81,19 @@ class Characters(Base):
 class Favorite(Base):
     __tablename__ = 'favorite'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    id_user = Column(Integer,ForeignKey("user.id"))
+    id_user = Column(Integer,ForeignKey("user.id"),nullable=True)
     user = relationship(User)
 
-    id_characters = Column(Integer,ForeignKey("characters.id"))
+    id_characters = Column(Integer,ForeignKey("characters.id"),nullable=True)
     characters = relationship(Characters)
 
-    id_starships = Column(Integer,ForeignKey("starShips.id"))
+    id_starships = Column(Integer,ForeignKey("starShips.id"),nullable=True)
     starShips = relationship(StarShips)
 
-    id_vehicles = Column(Integer,ForeignKey("vehicles.id"))
+    id_vehicles = Column(Integer,ForeignKey("vehicles.id"),nullable=True)
     vehicles = relationship(Vehicles)
 
-    id_planets = Column(Integer,ForeignKey("planets.id"))
+    id_planets = Column(Integer,ForeignKey("planets.id"),nullable=True)
     planets = relationship(Planets)
 
     def to_dict(self):
